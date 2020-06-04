@@ -17,7 +17,7 @@ RUN apt-get update \
     && rm -fr /var/libapt/lists/*
 
 # Install pycryptodome package needed for scratchpad image generation
-RUN pip3 install pycryptodome
+RUN pip3 install pycryptodome==3.9.7
 
 WORKDIR /home/${user}
 
