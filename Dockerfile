@@ -13,6 +13,7 @@ RUN useradd -c "Wirepas user" -d /home/${user} -u ${uid} -g ${gid} -m ${user}
 # Install python3, pip and wget
 RUN apt-get update \
     && apt-get install -y python3 python3-pip \
+    && apt-get install -y doxygen \
     && apt-get install -y curl \
     && rm -fr /var/libapt/lists/*
 
