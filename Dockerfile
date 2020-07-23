@@ -12,8 +12,10 @@ RUN apt-get update \
        doxygen \
        python3 \
        python3-pip \
-       python3-pycryptodome \
     && rm -fr /var/libapt/lists/*
+
+# Install pycryptodome package needed for scratchpad image generation
+RUN pip3 install pycryptodome==3.9.7
 
 WORKDIR /home/${user}
 
