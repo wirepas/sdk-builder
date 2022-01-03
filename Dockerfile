@@ -26,7 +26,7 @@ RUN curl -Lso gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2 "https://d
     && rm -f gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
 
 # Add Gcc 10 compiler to default path
-ENV PATH="/opt/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux/bin:${PATH}"
+ENV PATH="/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:${PATH}"
 
 # No need to be root anymore
 USER ${user}
