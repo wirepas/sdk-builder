@@ -18,6 +18,9 @@ RUN apt-get update \
 # Install pycryptodome package needed for scratchpad image generation
 RUN pip3 install pycryptodome==3.16.0
 
+# Tool to generate clang's "compile_command.json" for make-based projects
+RUN pip3 install compiledb==0.10.1
+
 WORKDIR /home/${user}
 
 # Install Arm compiler
