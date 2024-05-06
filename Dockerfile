@@ -1,5 +1,8 @@
-FROM ubuntu:20.04
-# Use the 20.04 LTS release instead of latest to have stable environement
+FROM ubuntu:24.04
+# Use the 24.04 LTS release instead of latest to have stable environement
+
+# Remove ubuntu user to free uid=1000 and gid=1000
+RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu
 
 # Create a default Wirepas user
 ARG user=wirepas
@@ -13,10 +16,8 @@ RUN apt-get update \
        git \
        python3 \
        python3-pip \
+       python3-pycryptodome \
     && rm -fr /var/libapt/lists/*
-
-# Install pycryptodome package needed for scratchpad image generation
-RUN pip3 install pycryptodome==3.16.0
 
 WORKDIR /home/${user}
 
