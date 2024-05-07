@@ -16,8 +16,15 @@ RUN apt-get update \
        git \
        python3 \
        python3-pip \
-       python3-pycryptodome \
     && rm -fr /var/libapt/lists/*
+
+# Install pycryptodome package (Crypto module)
+# needed for scratchpad image generation.
+# Note! Ubuntu python3-pycryptodome system package
+# is based on pycryptodomex (Cryptodome module),
+# not to pycryptodome (Crypto module), thus
+# it cannot be used instead.
+RUN pip3 install --break-system-packages pycryptodome==3.20.0
 
 WORKDIR /home/${user}
 
