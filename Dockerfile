@@ -29,12 +29,12 @@ RUN pip3 install --break-system-packages pycryptodome==3.20.0
 WORKDIR /home/${user}
 
 # Install Arm compiler
-RUN curl -Lso gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2 "https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2" \
-    && tar xjf gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2 -C /opt/ \
-    && rm -f gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2
+RUN curl -Lso arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/binrel/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz?rev=7bd049b7a3034e64885fa1a71c12f91d&hash=732D909FA8F68C0E1D0D17D08E057619" \
+    && tar -xf arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz -C /opt/ \
+    && rm -f arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
 
-# Add Gcc 10.3 compiler to default path
-ENV PATH="/opt/gcc-arm-none-eabi-10.3-2021.10/bin:${PATH}"
+# Add Gcc 12.2.rel1 compiler to default path
+ENV PATH="/opt/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin:${PATH}"
 
 # No need to be root anymore
 USER ${user}
