@@ -42,6 +42,9 @@ RUN apt-get update \
 # cannot be used.
 RUN pip3 install --break-system-packages pycryptodome==3.20.0
 
+# Tool to generate clang's "compile_command.json" for make-based projects
+RUN pip3 install compiledb==0.10.1
+
 WORKDIR /home/${user}
 
 # Download and install the correct ARM toolchain based on target architecture
