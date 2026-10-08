@@ -47,9 +47,9 @@ RUN pip3 install --break-system-packages pycryptodome==3.20.0
 WORKDIR /home/${user}
 
 # Download and install the correct ARM toolchain based on target architecture
-ARG ARM_TOOLCHAIN_NAME_NO_ARCH="arm-gnu-toolchain-12.2.rel1-arm-none-eabi"
-ARG ARM_TOOLCHAIN_NAME="arm-gnu-toolchain-12.2.rel1-${BUILD_ARCH}-arm-none-eabi"
-ARG ARM_TOOLCHAIN_URL="https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/binrel/${ARM_TOOLCHAIN_NAME}.tar.xz"
+ARG ARM_TOOLCHAIN_NAME_NO_ARCH="arm-gnu-toolchain-14.2.rel1-arm-none-eabi"
+ARG ARM_TOOLCHAIN_NAME="arm-gnu-toolchain-14.2.rel1-${BUILD_ARCH}-arm-none-eabi"
+ARG ARM_TOOLCHAIN_URL="https://developer.arm.com/-/media/Files/downloads/gnu/14.2.rel1/binrel/${ARM_TOOLCHAIN_NAME}.tar.xz"
 
 RUN curl -Lso arm-gnu-toolchain.tar.xz "${ARM_TOOLCHAIN_URL}" \
     && tar -xf arm-gnu-toolchain.tar.xz -C /opt/ \
