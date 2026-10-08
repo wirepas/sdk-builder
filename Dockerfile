@@ -7,10 +7,12 @@ ARG TARGETARCH
 # AMD64 build parameters
 FROM base-all AS build-amd64
 ARG BUILD_ARCH="x86_64"
+ARG RISCV_ARCH="linux-x64"
 
 # ARM64 build parameters
 FROM base-all AS build-arm64
 ARG BUILD_ARCH="aarch64"
+ARG RISCV_ARCH="linux-arm64"
 
 FROM build-${TARGETARCH} AS final
 
@@ -30,7 +32,7 @@ RUN apt-get update \
        python3 \
        python3-pip \
        xz-utils \
-    && rm -fr /var/libapt/lists/*
+    && rm -fr /var/lib/apt/lists/*
 
 # Install Python packages
 #
@@ -56,6 +58,20 @@ RUN curl -Lso arm-gnu-toolchain.tar.xz "${ARM_TOOLCHAIN_URL}" \
 
 # Add ARM toolchain to default path
 ENV PATH="/opt/${ARM_TOOLCHAIN_NAME_NO_ARCH}/bin:${PATH}"
+
+# Download and install the correct RISC-V toolchain based on target architecture
+# (for the RISC-V coprocessor of nRF54L)
+ARG RISCV_TOOLCHAIN_NAME_NO_ARCH="xpack-riscv-none-elf-gcc-15.2.0-1"
+ARG RISCV_TOOLCHAIN_NAME="xpack-riscv-none-elf-gcc-15.2.0-1-${RISCV_ARCH}"
+ARG RISCV_TOOLCHAIN_URL="https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases/download/v15.2.0-1/${RISCV_TOOLCHAIN_NAME}.tar.gz"
+
+RUN curl -Lso riscv-none-elf-gcc.tar.gz "${RISCV_TOOLCHAIN_URL}" \
+    && tar -xf riscv-none-elf-gcc.tar.gz -C /opt/ \
+    && rm -f riscv-none-elf-gcc.tar.gz \
+    && ln -s "${RISCV_TOOLCHAIN_NAME}" "/opt/${RISCV_TOOLCHAIN_NAME_NO_ARCH}"
+
+# Add RISC-V toolchain to default path
+ENV PATH="/opt/${RISCV_TOOLCHAIN_NAME_NO_ARCH}/bin:${PATH}"
 
 # No need to be root anymore
 USER ${user}
